@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <!-- Same meta tags as index.html -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Side Navigation -->
+        <nav class="sidenav">
+            <div class="user-profile">
+                <img id="userAvatar" src="assets/images/default-avatar.png" alt="User">
+                <div>
+                    <h3 id="userName">Loading...</h3>
+                    <p id="userBalance">₹0</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="active"><a href="#play">Play Game</a></li>
+                <li><a href="#transactions">Transactions</a></li>
+                <li><a href="#withdraw">Withdraw</a></li>
+                <li><a href="#refer">Refer Friends</a></li>
+            </ul>
+            
+            <button id="logoutBtn" class="btn-logout">
+                <svg><!-- Logout icon --></svg>
+                Sign Out
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="game-area">
+            <div class="game-header">
+                <h2>Color Prediction</h2>
+                <div class="theme-toggle">
+                    <button id="themeSwitcher">🌓</button>
+                </div>
+            </div>
+            
+            <div class="game-board">
+                <div class="color-grid">
+                    <div class="color-card red" data-multiplier="2">
+                        <h3>RED</h3>
+                        <p>2x Payout</p>
+                    </div>
+                    <div class="color-card green" data-multiplier="3">
+                        <h3>GREEN</h3>
+                        <p>3x Payout</p>
+                    </div>
+                    <div class="color-card blue" data-multiplier="1.5">
+                        <h3>BLUE</h3>
+                        <p>1.5x Payout</p>
+                    </div>
+                </div>
+                
+                <div class="bet-controls">
+                    <input type="range" id="betSlider" min="10" max="1000" step="10" value="50">
+                    <div class="bet-amount">
+                        <span>Bet Amount:</span>
+                        <span id="currentBet">₹50</span>
+                    </div>
+                    <button id="placeBetBtn" class="btn-primary">Place Bet</button>
+                </div>
+            </div>
+            
+            <div class="game-history">
+                <h3>Recent Results</h3>
+                <div class="history-scroll" id="historyContainer">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer"></div>
+
+    <script src="firebase-config.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
