@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajagames | Color Trading</title>
+    <meta name="description" content="Premium color prediction game">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="glass-card">
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 24 24">
+                    <!-- Custom SVG logo -->
+                </svg>
+                <h1>Rajagames</h1>
+            </div>
+            
+            <div class="auth-form">
+                <button id="googleAuth" class="btn-auth google">
+                    <svg><!-- Google icon SVG --></svg>
+                    Continue with Google
+                </button>
+                
+                <div class="divider">or</div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email" autocomplete="off">
+                </div>
+                <button id="emailAuth" class="btn-auth email">
+                    Send Magic Link
+                </button>
+            </div>
+            
+            <footer class="auth-footer">
+                <p>New users get ₹20 bonus!</p>
+                <p>By continuing, you agree to our <a href="#">Terms</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="assets/js/auth.js" type="module"></script>
+</body>
+</html>
