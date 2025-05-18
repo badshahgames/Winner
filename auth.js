@@ -1,17 +1,8 @@
-import { 
-  auth, 
-  provider, 
-  db, 
-  doc, 
-  setDoc, 
-  getDoc,
-  updateDoc,
-  signInWithPopup 
-} from "./firebase-config.js";
+import { auth, provider, db, signInWithPopup } from "./firebase-config.js";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 const googleLoginBtn = document.getElementById('googleLogin');
 
-// Utility function for showing toast messages
 function showToast(message, isError = true) {
   const toast = document.createElement('div');
   toast.className = `toast ${isError ? 'error' : 'success'}`;
@@ -21,7 +12,7 @@ function showToast(message, isError = true) {
   setTimeout(() => {
     toast.classList.add('fade-out');
     setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  }, 5000);
 }
 
 async function handleGoogleLogin() {
@@ -38,18 +29,18 @@ async function handleGoogleLogin() {
       <span>Signing in...</span>
     `;
 
-    // Sign in with popup
+    // Sign in with Google
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     
-    // Check if user exists
+    // Check if user exists in Firestore
     const userRef = doc(db, "users", user.uid);
     const userDoc = await getDoc(userRef);
     
     if (!userDoc.exists()) {
-      // Create new user with ₹10 bonus
+      // Create new user document
       await setDoc(userRef, {
-        name: user.displayName || `Player${Math.floor(1000 + Math.random() * 9000)}`,
+        name: user.displayName || `User${Math.floor(1000 + Math.random() * 9000)}`,
         email: user.email,
         balance: 10,
         createdAt: new Date(),
@@ -58,32 +49,33 @@ async function handleGoogleLogin() {
       });
       showToast("Welcome! ₹10 bonus added to your account.", false);
     } else {
-      // Update last login for existing user
+      // Update existing user
       await updateDoc(userRef, {
         lastLogin: new Date()
       });
     }
     
-    // Redirect to game page after short delay
+    // Redirect after successful login
     setTimeout(() => {
       window.location.href = 'game.html';
     }, 1500);
     
   } catch (error) {
-    console.error("Login error:", {
-      code: error.code,
-      message: error.message,
-      fullError: error
-    });
-
-    // Show appropriate error messages
+    console.error("Login error:", error);
+    
     let errorMessage = "Login failed. Please try again.";
-    if (error.code === 'auth/popup-closed-by-user') {
-      errorMessage = "Login popup was closed. Please try again.";
-    } else if (error.code === 'auth/network-request-failed') {
-      errorMessage = "Network error. Please check your connection.";
+    switch(error.code) {
+      case 'auth/popup-closed-by-user':
+        errorMessage = "Login popup was closed before completing.";
+        break;
+      case 'auth/network-request-failed':
+        errorMessage = "Network error. Please check your internet connection.";
+        break;
+      case 'auth/cancelled-popup-request':
+        errorMessage = "Login process was cancelled.";
+        break;
     }
-
+    
     showToast(errorMessage);
     
     // Reset button
