@@ -4,50 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColorTrado - Login</title>
-  <link rel="stylesheet" href="assets/css/main.css">
   <style>
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+    :root {
+      --primary: #f59e0b;
+      --error: #ef4444;
+      --text: #1e293b;
+      --light: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #0f172a, #1e293b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .login-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     .logo {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 800;
       background: linear-gradient(to right, #f59e0b, #fbbf24);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 1rem;
+      margin-bottom: 10px;
     }
     
     .tagline {
       color: #94a3b8;
-      margin-bottom: 2rem;
+      margin-bottom: 30px;
     }
     
     #googleLogin {
       background: white;
-      color: #1e293b;
+      color: var(--text);
       border: none;
       padding: 12px 24px;
       border-radius: 8px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
       cursor: pointer;
       transition: all 0.2s;
     }
     
     #googleLogin:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     #googleLogin:disabled {
@@ -55,18 +76,32 @@
       cursor: not-allowed;
     }
     
-    .spinner {
-      display: inline-block;
+    #googleLogin img {
       width: 20px;
       height: 20px;
-      border: 3px solid rgba(0,0,0,0.1);
+    }
+    
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      border-top-color: #1e293b;
-      animation: spin 1s ease-in-out infinite;
+      border-top-color: var(--text);
+      animation: spin 1s linear infinite;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+    
+    .bonus-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: inline-block;
     }
     
     .toast {
@@ -74,14 +109,17 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
+      background: var(--error);
+      color: white;
       padding: 12px 24px;
       border-radius: 8px;
-      color: white;
       z-index: 100;
+      animation: fadeIn 0.3s;
     }
     
-    .toast.error {
-      background: #ef4444;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
   </style>
 </head>
@@ -91,11 +129,11 @@
     <p class="tagline">Predict colors and win rewards</p>
     
     <button id="googleLogin">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-      Continue with Google
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      <span>Continue with Google</span>
     </button>
     
-    <p class="terms">New users get ₹10 bonus!</p>
+    <div class="bonus-badge">Get ₹10 free to start playing!</div>
   </div>
 
   <script type="module" src="assets/js/auth.js"></script>
