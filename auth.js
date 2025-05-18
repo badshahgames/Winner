@@ -1,4 +1,13 @@
-import { auth, provider, db, doc, setDoc, getDoc } from "./firebase-config.js";
+import { 
+  auth, 
+  provider, 
+  db, 
+  doc, 
+  setDoc, 
+  getDoc,
+  updateDoc,
+  signInWithPopup 
+} from "./firebase-config.js";
 
 const googleLoginBtn = document.getElementById('googleLogin');
 
@@ -43,7 +52,7 @@ async function handleGoogleLogin() {
     
     // Show error message
     const toast = document.createElement('div');
-    toast.className = 'toast error';
+    toast.className = 'toast';
     toast.textContent = 'Login failed. Please try again.';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
