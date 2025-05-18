@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  setPersistence, 
+  browserLocalPersistence,
+  signInWithPopup 
+} from "firebase/auth";
+import { getFirestore, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,5 +27,10 @@ export const db = getFirestore(app);
 export const provider = new GoogleAuthProvider();
 
 // Set persistence (important for login to work properly)
-import { setPersistence, browserLocalPersistence } from "firebase/auth";
 setPersistence(auth, browserLocalPersistence);
+
+// Export Firestore functions
+export { doc, setDoc, getDoc, updateDoc };
+
+// Export auth functions
+export { signInWithPopup };
