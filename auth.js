@@ -1,26 +1,17 @@
-import { auth, provider, db, signInWithPopup } from "./firebase-config.js";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-
-const googleLoginBtn = document.getElementById('googleLogin');
-
-function showToast(message, isError = true) {
-  const toast = document.createElement('div');
-  toast.className = `toast ${isError ? 'error' : 'success'}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
+document.addEventListener('DOMContentLoaded', function() {
+  const googleLoginBtn = document.getElementById('googleLogin');
   
-  setTimeout(() => {
-    toast.classList.add('fade-out');
-    setTimeout(() => toast.remove(), 300);
-  }, 5000);
-}
-
-async function handleGoogleLogin() {
   if (!googleLoginBtn) {
     console.error("Login button not found!");
     return;
   }
 
+  googleLoginBtn.addEventListener('click', handleGoogleLogin);
+});
+
+async function handleGoogleLogin() {
+  const googleLoginBtn = document.getElementById('googleLogin');
+  
   try {
     // Show loading state
     googleLoginBtn.disabled = true;
@@ -30,28 +21,28 @@ async function handleGoogleLogin() {
     `;
 
     // Sign in with Google
-    const result = await signInWithPopup(auth, provider);
+    const result = await firebase.auth().signInWithPopup(googleProvider);
     const user = result.user;
     
     // Check if user exists in Firestore
-    const userRef = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userRef);
+    const userRef = db.collection('users').doc(user.uid);
+    const doc = await userRef.get();
     
-    if (!userDoc.exists()) {
+    if (!doc.exists) {
       // Create new user document
-      await setDoc(userRef, {
+      await userRef.set({
         name: user.displayName || `User${Math.floor(1000 + Math.random() * 9000)}`,
         email: user.email,
         balance: 10,
-        createdAt: new Date(),
-        lastLogin: new Date(),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
         photoURL: user.photoURL || null
       });
       showToast("Welcome! ₹10 bonus added to your account.", false);
     } else {
       // Update existing user
-      await updateDoc(userRef, {
-        lastLogin: new Date()
+      await userRef.update({
+        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
       });
     }
     
@@ -87,9 +78,14 @@ async function handleGoogleLogin() {
   }
 }
 
-// Initialize login button
-if (googleLoginBtn) {
-  googleLoginBtn.addEventListener('click', handleGoogleLogin);
-} else {
-  console.error("Google login button not found in the DOM");
+function showToast(message, isError = true) {
+  const toast = document.createElement('div');
+  toast.className = `toast ${isError ? 'error' : 'success'}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 300);
+  }, 5000);
 }
