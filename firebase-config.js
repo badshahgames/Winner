@@ -4,11 +4,18 @@ import {
   GoogleAuthProvider, 
   setPersistence, 
   browserLocalPersistence,
-  signInWithPopup 
+  browserSessionPersistence,
+  signInWithPopup
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc, 
+  updateDoc 
+} from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBci1YLe6TGuv9NHFRf1ljBnLH-ULj8jWs",
   authDomain: "color-trado.firebaseapp.com",
@@ -22,15 +29,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const provider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Set persistence (important for login to work properly)
-setPersistence(auth, browserLocalPersistence);
+// Configure Google provider
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account"
+});
 
-// Export Firestore functions
-export { doc, setDoc, getDoc, updateDoc };
+// Set persistence with error handling
+async function initializeAuthPersistence() {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch (error) {
+    console.error("Error setting persistence:", error);
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+    } catch (fallbackError) {
+      console.error("Error setting session persistence:", fallbackError);
+    }
+  }
+}
+initializeAuthPersistence();
 
-// Export auth functions
-export { signInWithPopup };
+// Export all needed functionalities
+export { 
+  auth, 
+  provider, 
+  db, 
+  doc, 
+  set
