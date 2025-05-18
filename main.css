@@ -1,0 +1,53 @@
+/* Main Styles */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.login-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.color-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.red { background: #ff4757; }
+.green { background: #2ed573; }
+.blue { background: #1e90ff; }
+
+.bet-button {
+    background: #ffa502;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.withdraw-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
