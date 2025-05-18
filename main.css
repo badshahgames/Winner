@@ -1,53 +1,144 @@
-/* Main Styles */
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0f172a;
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
 }
 
+/* Login Page */
 .login-container {
-    text-align: center;
-    margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
 }
 
+#googleLogin {
+  background: white;
+  color: #444;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+/* Game Page */
 .game-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
 }
 
 .color-options {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
 }
 
 .color-btn {
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+  flex: 1;
+  min-width: 100px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.red { background: #ff4757; }
-.green { background: #2ed573; }
-.blue { background: #1e90ff; }
+.color-btn.active {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+.red { background: #ef4444; }
+.green { background: #10b981; }
+.blue { background: #3b82f6; }
 
 .bet-button {
-    background: #ffa502;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+  background: #f59e0b;
+  color: #0f172a;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#result {
+  text-align: center;
+  margin: 20px 0;
+  min-height: 24px;
 }
 
 .withdraw-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.withdraw-section input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 10px 0;
+}
+
+/* Animations */
+.win-animation {
+  animation: pulse 0.5s 3;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+  
+  .color-btn {
+    min-width: calc(33% - 10px);
+    padding: 12px 5px;
+    font-size: 0.9rem;
+  }
+  
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
