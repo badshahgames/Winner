@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ColorTrado - Play</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColorTrado - Play</title>
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <div class="game-container">
-        <header>
-            <h2>Balance: ₹<span id="balance">0</span></h2>
-            <button id="logout">Logout</button>
-        </header>
+  <div class="game-container">
+    <header>
+      <h2>Balance: ₹<span id="balance">0</span></h2>
+      <button id="logout">Logout</button>
+    </header>
 
-        <div class="game-area">
-            <div class="color-options">
-                <button class="color-btn red" data-color="red">Red (2x)</button>
-                <button class="color-btn green" data-color="green">Green (3x)</button>
-                <button class="color-btn blue" data-color="blue">Blue (1.5x)</button>
-            </div>
-            <button id="placeBet" class="bet-button">BET ₹7</button>
-            <div id="result"></div>
-        </div>
-
-        <div class="withdraw-section">
-            <input type="text" id="upiId" placeholder="Enter UPI ID">
-            <button id="withdrawBtn">Request ₹500 Withdrawal</button>
-        </div>
+    <div class="game-area">
+      <div class="color-options">
+        <button class="color-btn red" data-color="red">Red (2x)</button>
+        <button class="color-btn green" data-color="green">Green (3x)</button>
+        <button class="color-btn blue" data-color="blue">Blue (1.5x)</button>
+      </div>
+      
+      <button id="placeBet" class="bet-button">BET ₹7</button>
+      <div id="result"></div>
     </div>
 
-    <script type="module" src="assets/js/game.js"></script>
+    <div class="withdraw-section">
+      <h3>Withdraw Earnings</h3>
+      <input type="text" id="upiId" placeholder="Enter UPI ID (e.g. 9825537505@fam)">
+      <button id="withdrawBtn" class="bet-button">REQUEST ₹500 WITHDRAWAL</button>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/game.js"></script>
 </body>
 </html>
