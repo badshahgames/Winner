@@ -5,31 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColorTrado - Login</title>
   <style>
+    :root {
+      --primary: #f59e0b;
+      --error: #ef4444;
+      --success: #10b981;
+      --text: #1e293b;
+      --light: #f8fafc;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #0f172a, #1e293b);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
+      padding: 20px;
     }
     
-    .login-box {
+    .login-container {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      padding: 40px;
       border-radius: 16px;
-      text-align: center;
-      width: 90%;
+      padding: 40px;
+      width: 100%;
       max-width: 400px;
+      text-align: center;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+    }
+    
+    .tagline {
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+    
     #googleLogin {
       background: white;
-      color: #333;
+      color: var(--text);
       border: none;
       padding: 12px 24px;
       border-radius: 8px;
@@ -51,6 +75,12 @@
     #googleLogin:disabled {
       opacity: 0.7;
       cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    #googleLogin img {
+      width: 20px;
+      height: 20px;
     }
     
     .spinner {
@@ -58,25 +88,81 @@
       height: 20px;
       border: 3px solid rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      border-top-color: #333;
+      border-top-color: var(--text);
       animation: spin 1s linear infinite;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
+    .bonus-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: inline-block;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      border-radius: 8px;
+      z-index: 100;
+      animation: fadeIn 0.3s;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      text-align: center;
+    }
+    
+    .toast.error {
+      background: var(--error);
+    }
+    
+    .toast.success {
+      background: var(--success);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    
+    .fade-out {
+      animation: fadeOut 0.3s forwards;
+    }
+    
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h1 style="color: #f59e0b; margin-bottom: 30px;">ColorTrado</h1>
+  <div class="login-container">
+    <div class="logo">ColorTrado</div>
+    <p class="tagline">Predict colors and win rewards</p>
+    
     <button id="googleLogin">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
       <span>Continue with Google</span>
     </button>
-    <p style="color: #94a3b8; margin-top: 20px;">New users get ₹10 free!</p>
+    
+    <div class="bonus-badge">Get ₹10 free to start playing!</div>
   </div>
 
-  <script type="module" src="auth.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+  <!-- Your scripts -->
+  <script type="module" src="assets/js/auth.js"></script>
 </body>
 </html>
