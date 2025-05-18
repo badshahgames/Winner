@@ -11,7 +11,25 @@ import {
 
 const googleLoginBtn = document.getElementById('googleLogin');
 
+// Utility function for showing toast messages
+function showToast(message, isError = true) {
+  const toast = document.createElement('div');
+  toast.className = `toast ${isError ? 'error' : 'success'}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 async function handleGoogleLogin() {
+  if (!googleLoginBtn) {
+    console.error("Login button not found!");
+    return;
+  }
+
   try {
     // Show loading state
     googleLoginBtn.disabled = true;
@@ -35,8 +53,10 @@ async function handleGoogleLogin() {
         email: user.email,
         balance: 10,
         createdAt: new Date(),
-        lastLogin: new Date()
+        lastLogin: new Date(),
+        photoURL: user.photoURL || null
       });
+      showToast("Welcome! ₹10 bonus added to your account.", false);
     } else {
       // Update last login for existing user
       await updateDoc(userRef, {
@@ -44,18 +64,27 @@ async function handleGoogleLogin() {
       });
     }
     
-    // Redirect to game page
-    window.location.href = 'game.html';
+    // Redirect to game page after short delay
+    setTimeout(() => {
+      window.location.href = 'game.html';
+    }, 1500);
     
   } catch (error) {
-    console.error("Login error:", error);
-    
-    // Show error message
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = 'Login failed. Please try again.';
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+    console.error("Login error:", {
+      code: error.code,
+      message: error.message,
+      fullError: error
+    });
+
+    // Show appropriate error messages
+    let errorMessage = "Login failed. Please try again.";
+    if (error.code === 'auth/popup-closed-by-user') {
+      errorMessage = "Login popup was closed. Please try again.";
+    } else if (error.code === 'auth/network-request-failed') {
+      errorMessage = "Network error. Please check your connection.";
+    }
+
+    showToast(errorMessage);
     
     // Reset button
     googleLoginBtn.disabled = false;
@@ -66,7 +95,9 @@ async function handleGoogleLogin() {
   }
 }
 
-// Add click event listener
+// Initialize login button
 if (googleLoginBtn) {
   googleLoginBtn.addEventListener('click', handleGoogleLogin);
+} else {
+  console.error("Google login button not found in the DOM");
 }
