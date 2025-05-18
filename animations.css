@@ -1,0 +1,15 @@
+.color-btn.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+@keyframes winPulse {
+    0% { background-color: #2ed573; }
+    50% { background-color: #7bed9f; }
+    100% { background-color: #2ed573; }
+}
+
+.win-animation {
+    animation: winPulse 1s;
+}
