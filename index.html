@@ -1,19 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ColorTrado - Login</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColorTrado - Login</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+    
+    .logo {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+    
+    .tagline {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+    }
+    
+    #googleLogin {
+      background: white;
+      color: #1e293b;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    #googleLogin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    #googleLogin:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top-color: #1e293b;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      border-radius: 8px;
+      color: white;
+      z-index: 100;
+    }
+    
+    .toast.error {
+      background: #ef4444;
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>ColorTrado</h1>
-        <p>Get ₹10 free to start playing!</p>
-        <button id="googleLogin">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-            Sign in with Google
-        </button>
-    </div>
+  <div class="login-container">
+    <div class="logo">ColorTrado</div>
+    <p class="tagline">Predict colors and win rewards</p>
+    
+    <button id="googleLogin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+      Continue with Google
+    </button>
+    
+    <p class="terms">New users get ₹10 bonus!</p>
+  </div>
 
-    <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
 </body>
 </html>
