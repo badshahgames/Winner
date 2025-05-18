@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ColorTrado - Play</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h2>Balance: ₹<span id="balance">0</span></h2>
+            <button id="logout">Logout</button>
+        </header>
+
+        <div class="game-area">
+            <div class="color-options">
+                <button class="color-btn red" data-color="red">Red (2x)</button>
+                <button class="color-btn green" data-color="green">Green (3x)</button>
+                <button class="color-btn blue" data-color="blue">Blue (1.5x)</button>
+            </div>
+            <button id="placeBet" class="bet-button">BET ₹7</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="withdraw-section">
+            <input type="text" id="upiId" placeholder="Enter UPI ID">
+            <button id="withdrawBtn">Request ₹500 Withdrawal</button>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/game.js"></script>
+</body>
+</html>
