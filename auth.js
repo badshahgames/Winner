@@ -1,43 +1,63 @@
-import { auth, db, provider, signInWithPopup, doc, setDoc, getDoc } from "./firebase-config.js";
+import { auth, provider, db, doc, setDoc, getDoc } from "./firebase-config.js";
 
 const googleLoginBtn = document.getElementById('googleLogin');
 
-async function handleLogin() {
+async function handleGoogleLogin() {
   try {
+    // Show loading state
     googleLoginBtn.disabled = true;
-    googleLoginBtn.innerHTML = '<div class="spinner"></div> Signing in...';
-    
+    googleLoginBtn.innerHTML = `
+      <div class="spinner"></div>
+      <span>Signing in...</span>
+    `;
+
+    // Sign in with popup
     const result = await signInWithPopup(auth, provider);
-    const userRef = doc(db, "users", result.user.uid);
+    const user = result.user;
     
-    const docSnap = await getDoc(userRef);
-    if (!docSnap.exists()) {
+    // Check if user exists
+    const userRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    
+    if (!userDoc.exists()) {
+      // Create new user with ₹10 bonus
       await setDoc(userRef, {
-        name: result.user.displayName || `Player${Math.floor(1000 + Math.random() * 9000)}`,
-        balance: 10, // ₹10 signup bonus
-        email: result.user.email,
+        name: user.displayName || `Player${Math.floor(1000 + Math.random() * 9000)}`,
+        email: user.email,
+        balance: 10,
         createdAt: new Date(),
         lastLogin: new Date()
       });
+    } else {
+      // Update last login for existing user
+      await updateDoc(userRef, {
+        lastLogin: new Date()
+      });
     }
+    
+    // Redirect to game page
     window.location.href = 'game.html';
+    
   } catch (error) {
     console.error("Login error:", error);
-    showToast("Login failed. Please try again.", "error");
+    
+    // Show error message
+    const toast = document.createElement('div');
+    toast.className = 'toast error';
+    toast.textContent = 'Login failed. Please try again.';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+    
+    // Reset button
     googleLoginBtn.disabled = false;
-    googleLoginBtn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"> Continue with Google';
+    googleLoginBtn.innerHTML = `
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      <span>Continue with Google</span>
+    `;
   }
 }
 
+// Add click event listener
 if (googleLoginBtn) {
-  googleLoginBtn.addEventListener('click', handleLogin);
-}
-
-function showToast(message, type) {
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => toast.remove(), 3000);
+  googleLoginBtn.addEventListener('click', handleGoogleLogin);
 }
