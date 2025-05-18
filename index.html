@@ -5,54 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColorTrado - Login</title>
   <style>
-    :root {
-      --primary: #f59e0b;
-      --error: #ef4444;
-      --text: #1e293b;
-      --light: #f8fafc;
-    }
-    
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #0f172a, #1e293b);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
-      padding: 20px;
     }
     
-    .login-container {
+    .login-box {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-radius: 16px;
       padding: 40px;
-      width: 100%;
-      max-width: 400px;
+      border-radius: 16px;
       text-align: center;
+      width: 90%;
+      max-width: 400px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
-    .logo {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(to right, #f59e0b, #fbbf24);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 10px;
-    }
-    
-    .tagline {
-      color: #94a3b8;
-      margin-bottom: 30px;
-    }
-    
     #googleLogin {
       background: white;
-      color: var(--text);
+      color: #333;
       border: none;
       padding: 12px 24px;
       border-radius: 8px;
@@ -76,66 +53,30 @@
       cursor: not-allowed;
     }
     
-    #googleLogin img {
-      width: 20px;
-      height: 20px;
-    }
-    
     .spinner {
       width: 20px;
       height: 20px;
       border: 3px solid rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      border-top-color: var(--text);
+      border-top-color: #333;
       animation: spin 1s linear infinite;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
-    .bonus-badge {
-      background: rgba(245, 158, 11, 0.2);
-      color: #f59e0b;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-top: 20px;
-      display: inline-block;
-    }
-    
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--error);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      z-index: 100;
-      animation: fadeIn 0.3s;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="logo">ColorTrado</div>
-    <p class="tagline">Predict colors and win rewards</p>
-    
+  <div class="login-box">
+    <h1 style="color: #f59e0b; margin-bottom: 30px;">ColorTrado</h1>
     <button id="googleLogin">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
       <span>Continue with Google</span>
     </button>
-    
-    <div class="bonus-badge">Get ₹10 free to start playing!</div>
+    <p style="color: #94a3b8; margin-top: 20px;">New users get ₹10 free!</p>
   </div>
 
-  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
