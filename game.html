@@ -7,27 +7,62 @@
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="game-container">
-    <header>
-      <h2>Balance: ₹<span id="balance">0</span></h2>
-      <button id="logout">Logout</button>
+  <div class="game-app">
+    <!-- Header -->
+    <header class="game-header">
+      <div class="user-info">
+        <div class="balance">
+          <span>₹</span>
+          <span id="balance">0</span>
+        </div>
+      </div>
+      <button id="logout" class="logout-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </button>
     </header>
 
-    <div class="game-area">
+    <!-- Game Area -->
+    <main class="game-area">
       <div class="color-options">
-        <button class="color-btn red" data-color="red">Red (2x)</button>
-        <button class="color-btn green" data-color="green">Green (3x)</button>
-        <button class="color-btn blue" data-color="blue">Blue (1.5x)</button>
+        <button class="color-option red" data-color="red">
+          <span>Red</span>
+          <span class="multiplier">2x</span>
+        </button>
+        <button class="color-option green" data-color="green">
+          <span>Green</span>
+          <span class="multiplier">3x</span>
+        </button>
+        <button class="color-option blue" data-color="blue">
+          <span>Blue</span>
+          <span class="multiplier">1.5x</span>
+        </button>
       </div>
-      
-      <button id="placeBet" class="bet-button">BET ₹7</button>
-      <div id="result"></div>
-    </div>
 
+      <div class="bet-controls">
+        <div class="bet-amount">
+          <span>Bet Amount:</span>
+          <span class="amount">₹7</span>
+        </div>
+        <button id="placeBet" class="bet-btn">Place Bet</button>
+      </div>
+
+      <div class="countdown-display" id="countdown"></div>
+      <div class="result-display" id="result"></div>
+    </main>
+
+    <!-- Withdraw Section -->
     <div class="withdraw-section">
       <h3>Withdraw Earnings</h3>
-      <input type="text" id="upiId" placeholder="Enter UPI ID (e.g. 9825537505@fam)">
-      <button id="withdrawBtn" class="bet-button">REQUEST ₹500 WITHDRAWAL</button>
+      <div class="input-group">
+        <input type="text" id="upiId" placeholder="Enter UPI ID (e.g. 9825537505@fam)">
+      </div>
+      <button id="withdrawBtn" class="withdraw-btn">
+        Request ₹500 Withdrawal
+      </button>
     </div>
   </div>
 
